@@ -26,7 +26,7 @@ public class Main {
         }
 
         //Productos cantidad disponible mas de 10
-        public List<Producto> obtenerMayoresDiez() { no usages new*
+        public List<Producto> obtenerMayoresDiez() {
                 List<Producto> productosAdecuado = new ArrayList<>();
 
             for (Producto productosBuenos : hashMaplistaProductos.values()) {
@@ -61,6 +61,18 @@ public class Main {
                         }
 
                         return clientes;
+                    }
+                    //Mejorar punto 3
+                    public ArrayList<Cliente> obtenerClientesCompras2(LocalDate fechaConsulta){
+
+                                ArrayList < Cliente > listaClientes = new ArrayList<>();
+                        for (Factura factura : listaFacturas) {
+                            if (factura.fecha().isEqual(fechaConsulta)) {
+                                listaClientes.add(factura.cliente());
+                            }
+                        }
+
+                        return listaClientes;
                     }
 
 
