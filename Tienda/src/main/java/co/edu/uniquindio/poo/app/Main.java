@@ -35,20 +35,20 @@ public class Main {
 
                     return productosAdecuado;
 
-                    public ArrayList<String> productosConCodigosMayores(int limiteInferior, int limiteSuperior){
-                        ArrayList<String> resultado=new ArrayList<>();
+                    public ArrayList<String> productosConCodigosMayores ( int limiteInferior, int limiteSuperior){
+                        ArrayList<String> resultado = new ArrayList<>();
 
-                        for (String codigo: hashMapListaProductos.keySet()) {
+                        for (String codigo : hashMapListaProductos.keySet()) {
                             Producto producto = hashMaplistaProductos.get(codigo);
                             if (producto.getCantidadDisponible() >= 10 && producto.getCantidadDisponible() < 50) {
                                 resultado.add(codigo);
                             }
                         }
-                                return resultado;
-                        }
+                        return resultado;
+                    }
 
-                        //punto3
-                    public ArrayList<Cliente> obtenerClientesCompraronEnFecha(LocalDate fecha) {
+                    //punto3
+                    public ArrayList<Cliente> obtenerClientesCompraronEnFecha (LocalDate fecha){
                         ArrayList<Cliente> clientes = new ArrayList<>();
 
                         for (Factura factura : listaFactura) {
@@ -63,9 +63,9 @@ public class Main {
                         return clientes;
                     }
                     //Mejorar punto 3
-                    public ArrayList<Cliente> obtenerClientesCompras2(LocalDate fechaConsulta){
+                    public ArrayList<Cliente> obtenerClientesCompras2 (LocalDate fechaConsulta){
 
-                                ArrayList < Cliente > listaClientes = new ArrayList<>();
+                        ArrayList<Cliente> listaClientes = new ArrayList<>();
                         for (Factura factura : listaFacturas) {
                             if (factura.fecha().isEqual(fechaConsulta)) {
                                 listaClientes.add(factura.cliente());
@@ -73,6 +73,23 @@ public class Main {
                         }
 
                         return listaClientes;
+                    }
+                    //obtener facturas donde el nombre de su cliente empiece por r
+                    public ArrayList<Factura> obtenerFacturasClienteR() {
+                        ArrayList<Factura> facturasNombre = new ArrayList<>();
+
+                        for (Factura factura : listaFactura) {
+                            String nombre = factura.cliente().getNombreCompleto();
+
+                            if (nombre.length() > 0) {
+                                char primeraLetra = nombre.charAt(0);
+
+                                if (primeraLetra == 'r' || primeraLetra == 'R') {
+                                    facturasNombre.add(factura);
+                                }
+                            }
+                        }
+                        return facturasNombre;
                     }
 
 
