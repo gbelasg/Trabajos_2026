@@ -51,4 +51,17 @@ public class Producto {
     public Tienda getOwnedByTienda() {
         return ownedByTienda;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "nombre='" + nombre + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", cantidadDisponible=" + cantidadDisponible +
+                ", precio=" + precio +
+                ", categoria=" + categoria +
+                ", ownedByTienda=" + ownedByTienda +
+                '}';
+    }
 }

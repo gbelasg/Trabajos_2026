@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.model;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class Tienda {
@@ -111,17 +112,21 @@ public class Tienda {
     public List<Producto> obtenerMayoresDiez() {
         List<Producto> productosAdecuado = new ArrayList<>();
 
-        for (Producto productosBuenos : hashMaplistaProductos.values()) {
+        for (Producto productosBuenos : listaProductos.values()) {
             if (productosBuenos.getCantidadDisponible() >= 10) {
                 productosAdecuado.add(productosBuenos);
+            }
+        }
+        return productosAdecuado;
+    }
 
-                return productosAdecuado;
+    //punto 2
 
-                public ArrayList<String> productosConCodigosMayores ( int limiteInferior, int limiteSuperior){
-                    ArrayList<String> resultado = new ArrayList<>();
+    public ArrayList<String> productosConCodigosMayores ( int limiteInferior, int limiteSuperior){
+        ArrayList<String> resultado = new ArrayList<>();
 
-                    for (String codigo : hashMapListaProductos.keySet()) {
-                        Producto producto = hashMaplistaProductos.get(codigo);
+        for (String codigo :listaProductos.keySet()) {
+                        Producto producto = listaProductos.get(codigo);
                         if (producto.getCantidadDisponible() >= 10 && producto.getCantidadDisponible() < 50) {
                             resultado.add(codigo);
                         }
@@ -148,7 +153,7 @@ public class Tienda {
                 public ArrayList<Cliente> obtenerClientesCompras2 (LocalDate fechaConsulta){
 
                     ArrayList<Cliente> listaClientes = new ArrayList<>();
-                    for (Factura factura : listaFacturas) {
+                    for (Factura factura : listaFactura) {
                         if (factura.fecha().isEqual(fechaConsulta)) {
                             listaClientes.add(factura.cliente());
                         }
