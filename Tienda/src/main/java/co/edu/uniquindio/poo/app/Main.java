@@ -35,5 +35,19 @@ public class Main {
 
                     return productosAdecuado;
 
+                    public ArrayList<String> productosConCodigosMayores(int limiteInferior, int limiteSuperior){
+                        ArrayList<String> resultado=new ArrayList<>();
+
+                        for (String codigo: hashMapListaProductos.keySet()) {
+                            Producto producto = hashMaplistaProductos.get(codigo);
+                            if (producto.getCantidadDisponible() >= 10 && producto.getCantidadDisponible() < 50) {
+                                resultado.add(codigo);
+                            }
+                        }
+                                return resultado;
+                        }
+
+
+
     }
 }
