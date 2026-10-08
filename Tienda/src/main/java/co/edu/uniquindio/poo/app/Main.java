@@ -47,6 +47,23 @@ public class Main {
                                 return resultado;
                         }
 
+                        //punto3
+                    public ArrayList<Cliente> obtenerClientesCompraronEnFecha(LocalDate fecha) {
+                        ArrayList<Cliente> clientes = new ArrayList<>();
+
+                        for (Factura factura : listaFactura) {
+                            boolean esDeEsaFecha = factura.fecha().equals(fecha);
+                            boolean estaCancelada = factura.estadoFactura().equals(EstadoFactura.CANCELADA);
+
+                            if (esDeEsaFecha && !estaCancelada && !clientes.contains(factura.cliente())) {
+                                clientes.add(factura.cliente());
+                            }
+                        }
+
+                        return clientes;
+                    }
+
+
 
 
     }
