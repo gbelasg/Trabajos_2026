@@ -1,0 +1,197 @@
+package co.edu.uniquindio.poo.model;
+
+import java.util.*;
+
+public class Tienda {
+    private final String nombre; //no se puede modificar con final
+    private final String nit;
+    private String telefono;
+
+    private final ArrayList<Cliente> listaCliente = new ArrayList<>();
+    private final List<Factura> listaFactura = new LinkedList<>();
+    private Map<String, Producto> listaProductos = new HashMap<>();
+
+
+    public Tienda(String nombre, String nit, String telefono) {
+        this.nombre = nombre;
+        this.nit = nit;
+        this.telefono = telefono;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getNit() {
+        return nit;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+
+
+
+    public String registrarCliente (Cliente cliente){
+        Optional<Cliente> clienteEncontrado = buscarCliente(cliente.getDocumentoIdentidad());
+
+        if (clienteEncontrado.isPresent()) {
+            return "No se puede registrar. Ya existe un cliente con esa información anteriormente";
+        }
+        listaCliente.add(cliente);
+        return "El cliente ha sido registrado exitosamente";
+    }
+
+    public Optional<Cliente> buscarCliente(String documentoIdentidad) {
+        return listaCliente.stream() //.steam retorna una liksta de clientes auxiliar que no se puede modificar
+                .filter(cliente -> cliente.getDocumentoIdentidad().equals(documentoIdentidad)) //el filtro actua sobre lista de clientes y se usa la condicion
+                .findFirst(); //el primero que encuentre
+    }
+
+    public boolean eliminarCliente(String documentoIdentidad){
+        return listaCliente.removeIf(cliente -> cliente.getDocumentoIdentidad().equals(documentoIdentidad));
+    }
+    public boolean actualizarCliente(String documentoIdentidadAntigua, String nombreCompletoNuevo){
+        Optional<Cliente> clienteEncontrado=buscarCliente(documentoIdentidadAntigua);
+        clienteEncontrado.ifPresent(cliente -> cliente.setNombreCompleto(nombreCompletoNuevo));
+        return clienteEncontrado.isPresent();
+
+    }
+
+
+    //PRODUCTO
+    public String registrarProducto (Producto producto){
+        Optional<Producto> productoEncontrado = buscarProducto(producto.getCodigo());
+
+        if (productoEncontrado.isPresent()) {
+            return "No se puede registrar. Ya existe un cliente con esa información anteriormente";
+        }
+        listaProductos.put(producto.getCodigo(), producto);
+        return "El cliente ha sido registrado exitosamente";
+    }
+
+    public Optional<Producto> buscarProducto(String codigo){
+        return listaProductos.values().stream().filter(pro -> pro.getCodigo().equals(codigo)).findFirst();
+    }
+    public boolean eliminarProducto(String codigo){
+        return listaProductos.values().removeIf(producto -> producto.getCodigo().equals(codigo));
+    }
+    public boolean actualizarCantidadProducto(String codigo, String nuevaCantidad){
+        Optional<Producto> productoEncontrado= buscarProducto(codigo);
+        productoEncontrado.ifPresent(p -> p.setCantidadDisponible(Integer.parseInt(nuevaCantidad))); //se hace conversion de integer
+        return productoEncontrado.isPresent();
+    }
+
+
+    //Factura
+    public String registrarFactura (Factura factura){
+        Optional<Factura> facturaEncontrada = buscarFactura(factura.codigo());
+
+        if (facturaEncontrada.isPresent()) {
+            return "No se puede registrar. Ya existe un cliente con esa información anteriormente";
+        }
+        listaFactura.add(factura);
+        return "El cliente ha sido registrado exitosamente";
+    }
+
+
+    public Optional<Factura> buscarFactura(String codigo){
+        return listaFactura.stream().filter(f1 -> f1.codigo().equals(codigo)).findFirst();
+    }
+    public boolean eliminarFactura(String codigo){
+        return listaFactura.removeIf(factura -> factura.codigo().equals(codigo));
+    }
+
+    //Productos cantidad disponible mas de 10
+    public List<Producto> obtenerMayoresDiez() {
+        List<Producto> productosAdecuado = new ArrayList<>();
+
+        for (Producto productosBuenos : hashMaplistaProductos.values()) {
+            if (productosBuenos.getCantidadDisponible() >= 10) {
+                productosAdecuado.add(productosBuenos);
+
+                return productosAdecuado;
+
+                public ArrayList<String> productosConCodigosMayores ( int limiteInferior, int limiteSuperior){
+                    ArrayList<String> resultado = new ArrayList<>();
+
+                    for (String codigo : hashMapListaProductos.keySet()) {
+                        Producto producto = hashMaplistaProductos.get(codigo);
+                        if (producto.getCantidadDisponible() >= 10 && producto.getCantidadDisponible() < 50) {
+                            resultado.add(codigo);
+                        }
+                    }
+                    return resultado;
+                }
+
+                //punto3
+                public ArrayList<Cliente> obtenerClientesCompraronEnFecha (LocalDate fecha){
+                    ArrayList<Cliente> clientes = new ArrayList<>();
+
+                    for (Factura factura : listaFactura) {
+                        boolean esDeEsaFecha = factura.fecha().equals(fecha);
+                        boolean estaCancelada = factura.estadoFactura().equals(EstadoFactura.CANCELADA);
+
+                        if (esDeEsaFecha && !estaCancelada && !clientes.contains(factura.cliente())) {
+                            clientes.add(factura.cliente());
+                        }
+                    }
+
+                    return clientes;
+                }
+                //Mejorar punto 3
+                public ArrayList<Cliente> obtenerClientesCompras2 (LocalDate fechaConsulta){
+
+                    ArrayList<Cliente> listaClientes = new ArrayList<>();
+                    for (Factura factura : listaFacturas) {
+                        if (factura.fecha().isEqual(fechaConsulta)) {
+                            listaClientes.add(factura.cliente());
+                        }
+                    }
+
+                    return listaClientes;
+                }
+                //obtener facturas donde el nombre de su cliente empiece por r
+                public ArrayList<Factura> obtenerFacturasClienteR() {
+                    ArrayList<Factura> facturasNombre = new ArrayList<>();
+
+                    for (Factura factura : listaFactura) {
+                        String nombre = factura.cliente().getNombreCompleto();
+
+                        if (nombre.length() > 0) {
+                            char primeraLetra = nombre.charAt(0);
+
+                            if (primeraLetra == 'r' || primeraLetra == 'R') {
+                                facturasNombre.add(factura);
+                            }
+                        }
+                    }
+                    return facturasNombre;
+                }
+                //Obtener las facturas donde se haya comprado un celular de marca iphone 16 pro max
+                public ArrayList<Factura> obtenerFacturasPorProducto(String nombreProducto, Categoria categoria) {
+                    ArrayList<Factura> facturasEncontradas = new ArrayList<>();
+
+                    for (Factura factura : listaFactura) {
+                        for (DetalleFactura detalle : factura.listaDetallesFactura()) {
+                            boolean esEseProducto = detalle.getProducto().getNombre().equalsIgnoreCase(nombreProducto);
+                            boolean esDeEsaCategoria = detalle.getProducto().getCategoria() == categoria;
+
+                            if (esEseProducto && esDeEsaCategoria && !facturasEncontradas.contains(factura)) {
+                                facturasEncontradas.add(factura);
+                            }
+                        }
+                    }
+
+                    return facturasEncontradas;
+                }
+                //Obtener las facturas que tengan un cliente donde su nombre sea juan y haya comprado un celular de marca iphone 16 pro max
+
+
+
+            }

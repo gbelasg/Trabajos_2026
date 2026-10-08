@@ -9,4 +9,6 @@ public record Factura(String codigo, LocalDate fecha, double total, EstadoFactur
     public float calcularTotal(){
         return (float) listaDetallesFactura.stream() // lista en flujo de datos
                 .mapToDouble(DetalleFactura::calcularSubTotal).sum(); //cada detalle en un subtotal y los suma si la lista esta vacía
+
+
 }
