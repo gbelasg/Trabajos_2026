@@ -194,7 +194,19 @@ public class Tienda {
 
                     return facturasEncontradas;
                 }
-                //Obtener las facturas que tengan un cliente donde su nombre sea juan y haya comprado un celular de marca iphone 16 pro max
+                //Punto 6
+    public ArrayList<Factura>obtenerFacturasJuanYIphone16(){
+        ArrayList<Factura> nuevasFacturas=new ArrayList<>();
+        ArrayList<Factura> facturasIphone16= obtenerFacturasIphone16();
+        for (Factura factura: facturasIphone16){
+            Cliente cliente= factura.cliente();
+            if (cliente.getNombreCompleto().toLowerCase().contains("Juan")){ //cambair resultado a minuscula y asi comparar
+                nuevasFacturas.add(factura);
+            }
+        }
+        return nuevasFacturas;
+
+    }
 
 
 
