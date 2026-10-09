@@ -207,6 +207,17 @@ public class Tienda {
         return nuevasFacturas;
 
     }
+    //Punto 7
+    public ArrayList<Producto> obtenerProductosPorCategoria(Categoria categoria){
+        ArrayList<Producto> listaCategorias= new ArrayList<>();
+        for (Producto producto: listaProductos.values()){
+            if (producto.getCategoria()==categoria){
+                listaCategorias.add(producto);
+            }
+
+        }
+        return listaCategorias;
+    }
 
 
 
