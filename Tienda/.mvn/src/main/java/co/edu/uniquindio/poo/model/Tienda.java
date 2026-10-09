@@ -179,18 +179,17 @@ public class Tienda {
                     return facturasNombre;
                 }
                 //Obtener las facturas donde se haya comprado un celular de marca iphone 16 pro max
-                public ArrayList<Factura> obtenerFacturasPorProducto(String nombreProducto, Categoria categoria) {
+                public ArrayList<Factura> obtenerFacturasIphone16() {
                     ArrayList<Factura> facturasEncontradas = new ArrayList<>();
-
-                    for (Factura factura : listaFactura) {
-                        for (DetalleFactura detalle : factura.listaDetallesFactura()) {
-                            boolean esEseProducto = detalle.getProducto().getNombre().equalsIgnoreCase(nombreProducto);
-                            boolean esDeEsaCategoria = detalle.getProducto().getCategoria() == categoria;
-
-                            if (esEseProducto && esDeEsaCategoria && !facturasEncontradas.contains(factura)) {
+                    for (Factura factura: listaFactura){
+                        for (DetalleFactura detalleFactura: factura.listaDetallesFactura()){
+                            Producto producto= detalleFactura.getProducto();
+                            if (producto.getCategoria()==Categoria.CELULARES && producto.getNombre().equalsIgnoreCase("iPhone 16" +
+                                    "pro max")){
                                 facturasEncontradas.add(factura);
                             }
                         }
+
                     }
 
                     return facturasEncontradas;
