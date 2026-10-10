@@ -218,7 +218,33 @@ public class Tienda {
         }
         return listaCategorias;
     }
+    //punto8
+    public double encontrarPrecioMinimo(){
+        return listaProductos.values().stream().mapToDouble(producto ->producto.getPrecio())
+                .min().orElse(0); //devulve producto minimo, or else devulve un valor alterno (como un optional)
 
+    }
+    public double encontrarPrecioMaximo(){
+        return listaProductos.values().stream().mapToDouble(producto ->producto.getPrecio())
+                .max().orElse(0); //devuelve producto maximo
 
-
+    }
+    public ArrayList<Producto>obtenerRangoDePrecios(double precioMinimo, double precioMaximo){
+        ArrayList<Producto> rangoFinal= new ArrayList<>();
+        for (Producto producto: listaProductos.values()){
+            if (producto.getPrecio()>= precioMinimo && producto.getPrecio()<= precioMaximo){
+                rangoFinal.add(producto);
             }
+        }
+        return rangoFinal;
+    }
+
+
+
+
+
+
+
+
+
+}
