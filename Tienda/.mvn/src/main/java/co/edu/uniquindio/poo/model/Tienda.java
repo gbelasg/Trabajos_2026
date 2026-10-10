@@ -250,7 +250,7 @@ public class Tienda {
     public Optional<Producto> encontrarProductoMasCaro(){
         return listaProductos.values().stream().max(Comparator.comparingDouble(producto->producto.getPrecio()));
     }
-
+      //punto 11
     public ArrayList<Cliente> encontrarClientesMismaCiudad(String ciudad){
         ArrayList<Cliente> listaMismaCiudad= new ArrayList<>();
         for (Cliente cliente: listaCliente){
@@ -260,6 +260,15 @@ public class Tienda {
         return listaMismaCiudad;
 
     }
+
+    //punto 11 con stream
+    public ArrayList<Cliente> buscarMismaCiudad(String ciudad){
+        return  new ArrayList<>(listaCliente.stream().filter(cliente -> cliente.getCiudadResidencia().equalsIgnoreCase(ciudad))
+                .toList());
+
+    }
+
+
 
 
 
