@@ -238,6 +238,14 @@ public class Tienda {
         }
         return rangoFinal;
     }
+    //punto 9
+    public ArrayList<Producto>obtenerOrdenProductosPorPrecio(){
+        List<Producto> listaProductoPrecios= listaProductos.values().stream().sorted //ordenador (ordena elementos segun condiciones)
+                        (Comparator.comparingDouble(producto-> producto.getPrecio())) // 1. comparador java 2. compara segun el tipo 3. que tiene que hacer
+                .toList(); // convierte lo ya ordenado en lista
+        return new ArrayList<>(listaProductoPrecios); //devuelve la lista convertida en arrayList
+    }
+    
 
 
 
