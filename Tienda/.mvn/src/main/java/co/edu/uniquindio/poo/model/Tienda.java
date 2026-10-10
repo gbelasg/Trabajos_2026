@@ -245,7 +245,14 @@ public class Tienda {
                 .toList(); // convierte lo ya ordenado en lista
         return new ArrayList<>(listaProductoPrecios); //devuelve la lista convertida en arrayList
     }
+
+    //punto 10
+    public Optional<Producto> encontrarProductoMasCaro(){
+        return listaProductos.values().stream().max(Comparator.comparingDouble(producto->producto.getPrecio()));
+    }
+
     
+
 
 
 
