@@ -251,7 +251,15 @@ public class Tienda {
         return listaProductos.values().stream().max(Comparator.comparingDouble(producto->producto.getPrecio()));
     }
 
-    
+    public ArrayList<Cliente> encontrarClientesMismaCiudad(String ciudad){
+        ArrayList<Cliente> listaMismaCiudad= new ArrayList<>();
+        for (Cliente cliente: listaCliente){
+            if (cliente.getCiudadResidencia().equalsIgnoreCase(ciudad));
+            listaMismaCiudad.add(cliente);
+        }
+        return listaMismaCiudad;
+
+    }
 
 
 
